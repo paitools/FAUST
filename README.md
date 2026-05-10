@@ -83,8 +83,8 @@ This structure allows each component to be implemented independently, thereby in
    ```bash
    python3 MOA_App.py
 
-- The recommendation for the OBDA Engine is Ontop Endpoint CLI, although the Docker version is also available.
-https://ontop-vkg.org/tutorial/endpoint/endpoint-cli.html
+- The recommendation for the OBDA Engine is the [Ontop Endpoint CLI](https://ontop-vkg.org/tutorial/endpoint/endpoint-cli.html), although the Docker version is also available.
+
 
 An example configuration, including input files, db, jdbc, and a data sample (raw data), is available in the /Ontop folder.
 - To start the Ontop endpoint, run:
