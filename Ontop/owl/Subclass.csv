@@ -1,0 +1,7 @@
+Class;rdfs:subClassOf
+http://example.org/dbc#Message;http://www.w3.org/ns/sosa/ObservableProperty
+http://example.org/dbc#Signal;http://www.w3.org/ns/sosa/ObservableProperty
+http://example.org/dbc#MessageLog;http://www.w3.org/ns/sosa/Observation
+http://example.org/dbc#SignalLog;http://www.w3.org/ns/sosa/Observation
+http://www.w3.org/ns/sosa/ObservableProperty;http://www.w3.org/ns/ssn/Property
+http://www.w3.org/ns/sosa/Sensor;http://www.w3.org/ns/ssn/System

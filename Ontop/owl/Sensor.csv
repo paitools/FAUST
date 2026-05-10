@@ -1,0 +1,16 @@
+Individual;rdf:type;sosa:isHostedBy;sosa:madeObservation;sosa:observes
+can2_sniffer;sosa:Sensor;can2;;BoeningI
+can2_sniffer;sosa:Sensor;can2;;BoeningII
+can2_sniffer;sosa:Sensor;can2;;BoeningIII
+can2_sniffer;sosa:Sensor;can2;;BoeningIV
+can2_sniffer;sosa:Sensor;can2;;BoeningV
+can2_sniffer;sosa:Sensor;can2;;BoeningVI
+can2_sniffer;sosa:Sensor;can2;;BoeningVII
+can2_sniffer;sosa:Sensor;can2;;BoeningVIII
+can2_sniffer;sosa:Sensor;can2;;BoeningIX
+can2_sniffer;sosa:Sensor;can2;;BoeningX
+can2_sniffer;sosa:Sensor;can2;;BoeningXI
+can2_sniffer;sosa:Sensor;can2;;BoeningXII
+can2_sniffer;sosa:Sensor;can2;;BoeningXIII
+can2_sniffer;sosa:Sensor;can2;;BoeningXIV
+can2_sniffer;sosa:Sensor;can2;;BoeningXV
