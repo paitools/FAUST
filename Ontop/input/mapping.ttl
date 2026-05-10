@@ -1,0 +1,360 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+#@prefix dbc: <http://example.org/dbc#> .
+@prefix dbc: <https://paitools.github.io/DBCOntology/DBC.owl#> .
+@prefix ex: <http://example.org/individuals#> .
+@prefix map: <http://example.org/mappings#> .
+
+
+#########################################################################
+#  Subclass
+#########################################################################
+
+map:SubclassMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "subclasses" ] ;
+
+  rr:subjectMap [
+    rr:column "Class" ;
+    rr:termType rr:IRI
+  ] ;
+
+  rr:predicateObjectMap [
+    rr:predicate rdfs:subClassOf ;
+    rr:objectMap [
+      rr:column "rdfs__subClassOf" ;
+      rr:termType rr:IRI
+    ]
+  ] ;
+.
+
+
+#########################################################################
+#  DBC Object Properties
+#########################################################################
+
+map:DecodedFromProperty a rr:TriplesMap ;
+  rr:logicalTable [ rr:sqlQuery "SELECT 1 AS dummy" ] ;
+  rr:subjectMap [ rr:constant dbc:decodedFrom ] ;
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant owl:ObjectProperty ]
+  ] ;
+.
+
+#########################################################################
+#  MessageLog
+#########################################################################
+
+map:MessageLogMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "messagelog" ] ;
+
+  rr:subjectMap [
+    rr:template "http://example.org/message_log/{ide}/{timestamp}/{data}" ;
+    rr:class dbc:MessageLog
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:observedOn ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{busChannel}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate sosa:resultTime ;
+    rr:objectMap [ rr:column "timestamp" ; rr:datatype xsd:dateTime ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate sosa:hasSimpleResult ;
+    rr:objectMap [ rr:column "data" ; rr:datatype xsd:string ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:hasHexID ;
+    rr:objectMap [ rr:column "ide" ; rr:datatype xsd:string ]
+  ] ;
+.
+
+#########################################################################
+#  Node
+#########################################################################
+
+map:NodeMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "node" ] ;
+
+  rr:subjectMap [
+    rr:template "http://example.org/individuals#{Individual}" ;
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant dbc:Node ]
+  ] ;
+  
+  # rdf:type -> owl:NamedIndividual
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant owl:NamedIndividual ]
+  ] ;   
+.
+
+#########################################################################
+#  Message
+#########################################################################
+
+map:MessageMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "message" ] ;
+
+  rr:subjectMap [
+    rr:template "http://example.org/individuals#{Individual}" ;
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant dbc:Message ]
+  ] ;
+  
+  # rdf:type -> owl:NamedIndividual
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant owl:NamedIndividual ]
+  ] ;   
+  
+  rr:predicateObjectMap [
+    rr:predicate dbc:dataLength ;
+    #rr:objectMap [ rr:template "http://example.org/individuals#{dbc__dataLength}" ]
+    rr:objectMap [ rr:column "dbc__dataLength" ; rr:datatype xsd:integer ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:encodedVia ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__encodedVia}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:hasDecID ;
+    #rr:objectMap [ rr:template "http://example.org/individuals#{dbc__hasDecID}" ]
+    rr:objectMap [ rr:column "dbc__hasDecID" ; rr:datatype xsd:integer ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:hasSignal ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__hasSignal}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:hasTransmitter ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__hasTransmitter}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate sosa:isObservedBy ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__isObservedBy}" ]
+  ] ;
+.
+
+#########################################################################
+#  Signal
+#########################################################################
+
+map:SignalMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "signal" ] ;
+
+  rr:subjectMap [
+    rr:template "http://example.org/individuals#{Individual}" ;
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant dbc:Signal ]
+  ] ;
+  
+  # rdf:type -> owl:NamedIndividual
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant owl:NamedIndividual ]
+  ] ;   
+  
+  rr:predicateObjectMap [
+    rr:predicate dbc:decodedVia ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__decodedVia}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:hasReceiver ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__hasReceiver}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:isPartOf ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__isPartOf}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate qudt:hasUnit ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{qudt__hasUnit}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate sosa:isObservedBy ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__isObservedBy}" ]
+  ] ;
+.
+
+#########################################################################
+#  SignalLog
+#########################################################################
+
+map:SignalLogMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "signallog" ] ;
+
+  # Subject: each row in signallog view
+  rr:subjectMap [
+    rr:template "http://example.org/individuals#{Individual}" ;
+  ] ;
+
+  # rdf:type -> dbc:SignalLog
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant dbc:SignalLog ]
+  ] ;
+
+  # decodedFrom -> reference to MessageLog
+  rr:predicateObjectMap [
+    rr:predicate dbc:decodedFrom ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__decodedFrom}" ]
+  ] ;
+
+  # hasSimpleResult -> literal numeric value
+  rr:predicateObjectMap [
+    rr:predicate sosa:hasSimpleResult ;
+    rr:objectMap [ rr:column "sosa__hasSimpleResult" ; rr:datatype xsd:double ]
+  ] ;
+
+  # madeBySensor -> reference to Sensor
+  rr:predicateObjectMap [
+    rr:predicate sosa:madeBySensor ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__madeBySensor}" ]
+  ] ;
+
+  # observedProperty -> reference to Signal
+  rr:predicateObjectMap [
+    rr:predicate sosa:observedProperty ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__observedProperty}" ]
+  ] ;
+
+  # resultTime -> literal datetime
+  rr:predicateObjectMap [
+    rr:predicate sosa:resultTime ;
+    rr:objectMap [ rr:column "sosa__resultTime" ; rr:datatype xsd:dateTime ]
+  ] ;
+.
+
+
+#########################################################################
+#  Sensor
+#########################################################################
+
+map:SensorMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "sensor" ] ;
+
+  rr:subjectMap [
+    rr:template "http://example.org/individuals#{Individual}" ;
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant sosa:Sensor ]
+  ] ;
+  
+  # rdf:type -> owl:NamedIndividual
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant owl:NamedIndividual ]
+  ] ;  
+  
+  rr:predicateObjectMap [
+    rr:predicate sosa:isHostedBy ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__isHostedBy}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate sosa:madeObservation ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__madeObservation}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate sosa:observes ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__observes}" ]
+  ] ;
+.
+
+#########################################################################
+#  SignalEncoding
+#########################################################################
+
+map:SignalEncodingMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "signalencoding" ] ;
+
+  rr:subjectMap [
+    rr:template "http://example.org/individuals#{Individual}" ;
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant dbc:SignalEncoding ]
+  ] ;
+  
+  # rdf:type -> owl:NamedIndividual
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant owl:NamedIndividual ]
+  ] ;   
+  
+  rr:predicateObjectMap [
+    rr:predicate dbc:bitLenght ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{dbc__bitLenght}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:bitStart ;
+    #rr:objectMap [ rr:template "http://example.org/individuals#{dbc__bitStart}" ]
+    rr:objectMap [ rr:column "dbc__bitStart" ; rr:datatype xsd:integer ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate dbc:signed ;
+    #rr:objectMap [ rr:template "http://example.org/individuals#{dbc__signed}" ]
+    rr:objectMap [ rr:column "dbc__signed" ; rr:datatype xsd:string ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate qudt:byteOrder ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{qudt__byteOrder}" ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate qudt:conversionMultiplier ;
+    rr:objectMap [ rr:column "qudt__conversionMultiplier" ; rr:datatype xsd:double ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate qudt:conversionOffset ;
+    rr:objectMap [ rr:column "qudt__conversionOffset" ; rr:datatype xsd:double ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate qudt:maxInclusive ;
+    rr:objectMap [ rr:column "qudt__maxInclusive" ; rr:datatype xsd:double ]
+  ] ;
+ rr:predicateObjectMap [
+    rr:predicate qudt:minInclusive ;
+    rr:objectMap [ rr:column "qudt__minInclusive" ; rr:datatype xsd:double ]
+  ] ;
+.
+
+#########################################################################
+#  Platform
+#########################################################################
+
+map:PlatformMapping a rr:TriplesMap ;
+  rr:logicalTable [ rr:tableName "platform" ] ;
+
+  rr:subjectMap [
+    rr:template "http://example.org/individuals#{Individual}" ;
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant sosa:Platform ]
+  ] ;
+  
+  # rdf:type -> owl:NamedIndividual
+  rr:predicateObjectMap [
+    rr:predicate rdf:type ;
+    rr:objectMap [ rr:constant owl:NamedIndividual ]
+  ] ;   
+  
+  rr:predicateObjectMap [
+    rr:predicate sosa:hosts ;
+    rr:objectMap [ rr:template "http://example.org/individuals#{sosa__hosts}" ]
+  ] ;
+.
