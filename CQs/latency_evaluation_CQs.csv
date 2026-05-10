@@ -1,0 +1,35 @@
+question
+get all signals
+get all messages
+get signal message mapping
+get message properties
+get all units
+get all encodings
+get message with the most signals
+get encoding of message with the most signals
+get sensor node mapping
+get platfors hosting sensors
+get message platform mapping
+get all platforms
+get observation classes
+get message log properties
+get signal log properties
+get platforms of messge log
+get units of signal log observations
+get signals measuring voltage
+get signals of BoeningV
+get message which encodes FirePumpPressure
+get the decoding schema of Inclination
+get signals targeting Unknown node
+get decID of FuelTank05
+get platform hosting can2_sniffer
+get hexID of can2 platform
+get tx node of can2_sniffer 
+get latest EngineRoomTemperature
+get latest message logs from can2 platform
+get the mean of FuelTank01 on 01.03.2025
+get the max of Inclination on 01.03.2025
+get the mean of FuelTank08 starting from 01.03.2025
+get FuelTank05 values on 01.03.2025 when EngineRoomTemperature exceeded 24°C
+get FuelTank08 values higher than 40 on 01.03.2025
+get Inclination values lower than 1 on 01.03.2025

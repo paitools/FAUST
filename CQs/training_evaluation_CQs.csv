@@ -1,0 +1,36 @@
+abbreviation,competency_question
+GAS,What signals are encoded in CAN messages?
+GAM,Which CAN messages are observable on the bus?
+GSMM,How are signals mapped to CAN messages?
+LAMP,Which properties are defined for a CAN message?
+LAU,Which units are used for signal decoding?
+LAE,Which decoding schemas are used in the system?
+LMWMS,Which CAN message contains the highest number of signals?
+GEOMWMS,What are encoding schemas of CAN message that observes the highest number of signals?
+GSNM,How are sniffing sensors associated with transmitter nodes?
+GPHS,Which CAN bus platforms are hosting the sniffing sensors?
+GMPM,Which relations link CAN messages to CAN bus platforms?
+GAP,What CAN bus platforms are present in the system?
+GOT,Which types of observations are represented in the system?
+LMLP,What are the core components of a CAN message log?
+LSLP,How are signal log observations represented in the system?
+GMLP,Which CAN bus platforms carry CAN message logs?
+GUOSL,Which measurement units are assigned to the results of signal log observations?
+
+LSMV,Which signals carry voltage measurements?
+LSOM,What signals are part of the BoeningVI CAN message?
+GMOS,Which CAN message encodes the fire pump pressure signal?
+GEOS,What is the decoding schema of the Inclination signal?
+GSTE,Which signals are targeting the Unknown receiver node?
+GDOS,What is the decimal identifier of the fuel tank 08 signal?
+GPOS,Which platform hosts the can2_sniffer sensor?
+GHOP,Which message identifiers (Hex IDs) are observable on the can2 CAN bus platform?
+GROS,Which transmitter nodes are associated with the can2_sniffer sensor?
+GCTOS,What is the current temperature in the engine room?
+GLMOP,Which message logs were most recently recorded on can2 bus?
+GTAOSOD,What was the average value of the fuel tank 01 signal on 01.03.2025?
+GTMOSOD,What is the maximum port fan rotation speed observed on 01.03.2025?
+GTMOSFD,What was the average value of the Inclination starting from 01.03.2025?
+GSVODWC,What were the port fan rotation speed values on 01.03.2025 when the engine room temperature exceeded 25°C?
+GSVHT,Which FuelTank05 values higher than 40 are observed on 01.03.2025?
+GSVST,Which FuelTank02 values lower than 2000 are observed on 01.03.2025?
