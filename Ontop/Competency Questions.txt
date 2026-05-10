@@ -1,0 +1,73 @@
+#########################################
+### C01: Observable Properties ###
+#########################################
+
+General
+1. What signals are encoded in CAN messages?   list all | signals
+2. Which CAN messages are observable on the bus?   list all | messages
+3. How are signals mapped to CAN messages?  get | signal message | mapping (relation)
+4. Which properties are defined for a CAN message?  list | message properties (core components)
+5. Which units and encoding schemas are used for signal decoding?  list all | units; list all | encoding schemas
+6. Which CAN message contains the highest number of signals? list | messages | with (having) | the highest number of signals 
+
+Domain specific
+1. Which signals carry voltage measurements?  list | signals | carring (with) | voltage measuremets
+2. What signals are part of the BoeningVI CAN message? get | signals | of (part of) | msg.list | message
+3. Which CAN message encodes the fire pump pressure signal? get | the message | encoding | the sig.list | signal
+4. What is the encoding schema of the inclination signal? get | the encoding schema | of the | sig.list | signal
+5. Which signals are targeting the Vector__XXX receiver node? get | signals | targeting | node.list | node
+6. What is the decimal identifier of the bridge battery voltage signal? get | the decid |of the | sig.list | signal
+
+
+
+##################################
+### C02: Sensors and Platforms ###
+##################################
+
+General
+1. How are sniffing sensors associated with transmitter nodes?  get | sensor transmiter node (ECU) | association (mapping)
+2. Which CAN bus platforms are hosting the sniffing sensors?  get | platforms (can busses) | hosting | the sniffing sensors
+3. Which relations link CAN messages to CAN bus platforms?  get (show) | message to platform (can bus) | relation (mapping)
+
+4. What CAN bus platforms are present in the system? list all | platforms (CAN bus platforms, platforms in the system)  
+
+Domain specific
+1. Which platform hosts the can1_sniffer sensor?  get | platform (can bus) | hosting | sensor.list | sensor
+2. Which message identifiers (Hex IDs) are observable on the can1 CAN bus platform? list | msg ids | on |platform.list | platform
+3. Which transmitter nodes are associated with the can2_sniffer sensor? list | rx nodes | associated with | sensor.list | sensor
+
+##########################
+### C03: Observations ###
+##########################
+
+General
+1. Which types of observations are represented in the system?   get | observation types (subclasses)
+2. What are the core components of a CAN message log? list | properties (core components) | of message logs (of a msg log)
+3. How are signal log observations represented in the system? list | properties | of signal logs (of a sig log)
+4. Which CAN bus platforms carry CAN message logs?  get | platforms (can busses) | of message logs (carring msg logs)
+5. Which measurement units are assigned to the results of signal log observations? get | (meas.) units | (of) assigned to | signal log obs. 
+
+Domain specific
+1. What is the current temperature in the engine room? get | temp (current temp) | of (from) | temp_sig.list | signal
+#2. Which unit is associated to the signal log of the fresh water tank? get | unit | associated to | the siganl log of | sig.list
+3. Which message logs were most recently recorded on can2 bus? get | most recent | message logs from | platfrom.list | bus (platform)
+#do ovde 11.d
+
+4. What was the average value of the fuel tank 1 signal on 01.01.2021? get | the average value of | sig.list | on date.list
+5. What is the maximum port fan RPM observed on 01.01.2021? get | max | sig.list | observed on | date.list
+
+6. What was the average value of the fuel tank 1 signal in the last three days?
+#7. What is the maximum port fan RPM observed on 01.01.2021 after 2 pm? get | max | sig.list | observed on | date.list | after 2 pm
+
+###############################
+### C04: Advanced Modeling ###
+###############################
+
+Domain specific
+1. What were the port fan speed values on 01.03.2021 when the engine room temperature exceeded 24°C? get all | sig.list | values on | date.list | when | temp_sig.list | exceeded (was greater than, supassed) | 23-33 | °C (degrees, degrees Celsius)
+2. What are encoding schemas of CAN message that observes the highest number of signals? get | ecoding of | message | observing the highest number of siganls
+3. Which signals have measured values at least 20?percent higher than the average in the last 10 minutes? get signals | having | 20% | higher value than average on | date.list
+
+
+
+. Which sensor:X values are higher than 20 on 01.01.2021? get | sig.list values | greater than | value.list | on |date.list
