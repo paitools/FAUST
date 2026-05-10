@@ -86,7 +86,7 @@ This structure allows each component to be implemented independently, thereby in
 - The recommendation for the OBDA Engine is the [Ontop Endpoint CLI](https://ontop-vkg.org/tutorial/endpoint/endpoint-cli.html), although the Docker version is also available.
 
 
-An example configuration, including input files, db, jdbc, and a data sample (raw data), is available in the /Ontop folder.
+- An example configuration, including input files, db, jdbc, and a data sample (raw data), is available in the /Ontop folder.
 - To start the Ontop endpoint, run:
 
    ```bash
@@ -112,8 +112,7 @@ All resources are licensed under the [Creative Commons Attribution-NonCommercial
 
 ## Citation
 
-<span style="color:red;">Correct DOI!</span>
-
+<font color="red">Correct DOI!</font>
 
 Ivanovic, P., Hranisavljevic, N., & Maleshkova, M. (2026). paitools/FAUST: Fine-tuning Automation System v1.0: Pre-publication Release. Zenodo. https://doi.org/10.5281/zenodo.20083472
 
