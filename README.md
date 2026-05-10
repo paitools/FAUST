@@ -20,7 +20,7 @@ The results show that FAUST-based lightweight LLM fine-tuning enables robust, co
 
 ## FAUST Modules:
 
-![Alt text](docs/DBC_Ontology_v6.png)
+![Alt text](docs/FAUST_DFT.png)
 <p align="center"><em>DBC Ontology: The core concepts and semantic relationships</em></p>
 
 
