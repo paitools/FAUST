@@ -78,51 +78,29 @@ This structure allows each component to be implemented independently, thereby in
 
 ## MOA Implementation
 
-- To run SPARQL queries (e.g., `user_query.rq`) on real-time data:
+- To run the MOA GUI (Linux) Application, set the corresponding GGUF LLM file path in the App and run:
 
    ```bash
-   ontop.bat query -p ontop.properties -m mapping.ttl -q user_query.rq
+   python3 MOA_App.py
 
-Requirements
+- The recommendation for the OBDA Engine is Ontop Endpoint CLI, although the Docker version is also available.
+https://ontop-vkg.org/tutorial/endpoint/endpoint-cli.html
 
-- DuckDB ≥ `1.0.0`
-- Ontop client ≥ `5.3.0`
+An example configuration, including input files, db, jdbc, and a data sample (raw data), is available in the /Ontop folder.
+- To start the Ontop endpoint, run:
 
-Ensure both are installed before running the framework. 
-If compatibility issues occur, use the exact versions listed above.
-
-
-## Code Modification
+   ```bash
+   ./ontop endpoint --ontology=input/DBC.ttl --mapping=input/mapping.ttl --properties=input/ontop.properties --port=8080
 
 
-### Changing Logging Structure and File Format
+Module Requirements:
 
-Let's say we want to change the logging path to a different structure or directory (e.g., `/home/logs/*.json`).
-
-Like before, in the CANDI.py source code, set the `raw_data_path` to the new logging structure `/home/logs/*.json`
-
-However, this time, the file format is changed from `csv` to `json` and we need to change the message log reading function accordingly.
-
-Now, search for messagelog view and change the `read_csv_auto()` function to `read_json()`. Notice that `raw_data_path` will also receive the newly configured value.
-
-Save the changes and redeploy the framework:
-
-```bash
-python3 CANDI.py
-```
-
-Result: CANDI now operates with the new logging structure and `json` file format.
+- customtkinter
+- tkinter
+- requests
+- ollama
 
 
-### Supported Formats
-
-| Format   | Function         |
-|----------|------------------|
-| csv      | read_csv_auto()  |
-| json     | read_json()      |
-| tsv      | read_csv_auto()  |
-| parquet  | read_parquet()   |
-| jsonl    | read_ndjson()    |
 
 
 ## License
@@ -133,4 +111,8 @@ All resources are licensed under the [Creative Commons Attribution-NonCommercial
 
 
 ## Citation
+
+Correct DOI!
+
+Ivanovic, P., Hranisavljevic, N., & Maleshkova, M. (2026). paitools/FAUST: Fine-tuning Automation System v1.0: Pre-publication Release. Zenodo. https://doi.org/10.5281/zenodo.20083472
 
