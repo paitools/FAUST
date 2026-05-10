@@ -1,1 +1,116 @@
 # FAUST: Fine-tuning Automation System for LLM-driven Semantic Data Analysis
+![Contributions](https://img.shields.io/badge/Format-RDF/XML-blue)
+![Contributions](https://img.shields.io/badge/Format-TTL-blue)
+![Contributions](https://img.shields.io/badge/Format-JSON-blue)
+![Contributions](https://img.shields.io/badge/Language-Python-blue)
+
+CANDI is a semantic framework for dynamic CAN bus data decoding, system integration, and E2E deployment automation. CANDI combines virtual knowledge graphs (VKG) with OBDA principles to bridge raw data streams with structured semantic representations, enabling runtime message decoding, semantically governed diagnostics, and real-time analytics.
+
+## DBC Ontology:
+
+![Alt text](documentation/DBC_Ontology_v6.png)
+<p align="center"><em>DBC Ontology: The core concepts and semantic relationships</em></p>
+
+
+The DBC Ontology is a domain ontology for modeling Controller Area Network (CAN) communication systems in a semantic and machine-interpretable way. It captures the structure and meaning of CAN messages, signals, electronic control units (ECUs), encoding schemas, and data logging processes, providing a unified conceptual layer for low-level communication data that is otherwise difficult to integrate and analyze. The ontology is designed as an extension of the W3C SSN/SOSA standards and aligns with QUDT to ensure interoperability and consistent representation of physical quantities and units. 
+
+The motivation for the DBC Ontology arises from the growing volume and importance of CAN bus data in transportation and cyber-physical systems, including automotive, maritime, railway, and aerospace domains. While CAN is widely adopted as a reliable communication protocol, its data is typically stored and exchanged in encoded, schema-dependent formats (e.g., DBC files) that lack explicit semantics and hinder cross-system integration, reuse, and advanced analytics. Existing semantic models often operate at higher abstraction levels or assume pre-decoded data, limiting their applicability to real-time, resource-constrained, or security-sensitive environments. Against this state of the art, the DBC Ontology aims to bridge the gap between raw CAN bus data and semantic data integration frameworks. 
+
+Ontology main goals are to:
+
+-  Provide a standardized semantic representation of CAN communication grounded in established W3C ontologies 
+-  Support dynamic decoding and ontology-based access to encoded data streams 
+-  Enable scalable, secure, and reusable analytics across domains 
+
+By serving as the semantic core of the CANDI framework, the DBC Ontology facilitates automated deployment, real-time diagnostics, and long-term analysis of CAN-based telemetry, while remaining open, extensible, and reusable for the broader community.
+
+## Ontology Documentation:
+
+Ontology Specification with permanent `w3id.org` identifier:
+
+[![Documentation](https://img.shields.io/badge/Documentation-DBC_Ontology-blue)](https://paitools.github.io/DBCOntology/documentation/index-en.html)
+
+## CANDI User Guide
+
+Running **CANDI** on user hardware involves two automated steps:
+
+1. **Create the Knowledge Graph Matrix (KGM)**
+2. **Deploy the Framework**
+
+
+### 1. KGM Creation
+
+1. Set the `DBC_FILE` path in the `load_dbc.py` configuration (e.g., `DBC/boening.dbc`).
+   
+2. Run the script:
+   ```bash
+   python3 load_dbc.py
+   
+- The script will also load unit_mapping.json to convert user-defined DBC units into QUDT standard units (e.g., `kW` → `KiloW`).
+  * If a unit is not found in the mapping file, the original value is preserved and a warning is issued.
+
+- **Output:** a file named  `KGM.xlsx` will be generated in the project’s root directory.
+
+### 2. CANDI Deployment
+
+- After verifying the KGM, set the `raw_data_path` to your CAN bus logging structure (e.g., `raw/*/*/*/*.csv`).
+  
+- Deploy the framework:
+  ```bash
+  python3 CANDI.py
+
+### Running SPARQL
+
+- To run SPARQL queries (e.g., `user_query.rq`) on real-time data:
+
+   ```bash
+   ontop.bat query -p ontop.properties -m mapping.ttl -q user_query.rq
+
+Requirements
+
+- DuckDB ≥ `1.0.0`
+- Ontop client ≥ `5.3.0`
+
+Ensure both are installed before running the framework. 
+If compatibility issues occur, use the exact versions listed above.
+
+
+## Code Modification
+
+
+### Changing Logging Structure and File Format
+
+Let's say we want to change the logging path to a different structure or directory (e.g., `/home/logs/*.json`).
+
+Like before, in the CANDI.py source code, set the `raw_data_path` to the new logging structure `/home/logs/*.json`
+
+However, this time, the file format is changed from `csv` to `json` and we need to change the message log reading function accordingly.
+
+Now, search for messagelog view and change the `read_csv_auto()` function to `read_json()`. Notice that `raw_data_path` will also receive the newly configured value.
+
+Save the changes and redeploy the framework:
+
+```bash
+python3 CANDI.py
+```
+
+Result: CANDI now operates with the new logging structure and `json` file format.
+
+
+### Supported Formats
+
+| Format   | Function         |
+|----------|------------------|
+| csv      | read_csv_auto()  |
+| json     | read_json()      |
+| tsv      | read_csv_auto()  |
+| parquet  | read_parquet()   |
+| jsonl    | read_ndjson()    |
+
+
+## License
+
+All resources are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
+
+![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)
+
