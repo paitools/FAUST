@@ -44,14 +44,19 @@ DBC Ontology Specification (`w3id.org/dbc-ontology`), used for FAUST implementat
 
 Running **FAUST** on user hardware involves two steps:
 
-1. **Populate the Knowledge Graph Matrices (KGMs)**
+1. **Knowledge Graph Matrices (KGMs) Population**
 2. **FAUST Deployment**
 
 
 ### 1. KGM Population
 
-![Alt text](docs/KGM_table.png)
-<p align="center"><em>Signal representation in KGM, including individuals, type, and properties</em></p>
+<p align="center">
+  <img src="docs/KGM_table.png" width="80%">
+</p>
+
+<p align="center">
+  <em>Signal representation in KGM, including individuals, type, and properties.</em>
+</p>
 
 KGM presents a tabular format for mapping individuals (instances) with corresponding properties. Each sheet in the document depicts a single class, with the first column reserved for instances, while the remaining ones reflect combined data and object properties. Also, the user is not required to define datatypes for each literal, as this is resolved in the later OBDA mapping phase. An example representation of dbc:Signal instances (individuals) is shown above. 
 
@@ -70,8 +75,13 @@ Results: Training and Validation datasets are created in the project root direct
 
 ## Modular OBDA Architecture
 
-![Alt text](docs/MOA.png)
-<p align="center"><em>The Modular OBDA Architecture (MOA).</em></p>
+<p align="center">
+  <img src="docs/MOA.png" width="80%">
+</p>
+
+<p align="center">
+  <em>The Modular OBDA Architecture (MOA).</em>
+</p>
 
 To streamline the development of LLM-driven OBDA systems, we designed MOA, a Modular OBDA Architecture that supports independent, project-specific implementation of individual system components.
 Its modular design promotes reuse across platforms, systems, and programming environments.
