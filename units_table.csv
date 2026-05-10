@@ -1,0 +1,13 @@
+kind,unit
+volume,L
+angle,DEG
+temperature,DEG_C
+pressure,BAR
+current,A
+voltage,V
+rpm,REV-PER-MIN
+percentage,PERCENT
+power,KiloW
+energy,KiloW-HR
+frequency,HZ
+binary,BOOLEAN

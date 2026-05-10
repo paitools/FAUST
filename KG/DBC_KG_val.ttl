@@ -1,0 +1,381 @@
+@prefix ex: <http://example.org/individuals#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix dbc: <https://paitools.github.io/DBCOntology/DBC.owl#> .
+
+<https://paitools.github.io/DBCOntology/DBC.owl> a owl:Ontology ;
+	
+	dct:title "DBC – CAN Database Ontology" ;
+	dct:creator [
+        	a foaf:Person ;
+	        foaf:name "Pavle Ivanovic" ;
+        	foaf:mbox <mailto:ivanovip@hsu-hh.de> ;
+	        foaf:homepage <https://orcid.org/0000-0001-7757-094X>
+    	] ;
+	dct:creator [
+        	a foaf:Person ;
+	        foaf:name "Maria Maleshkova" ;
+		foaf:mbox <mailto:maleshkm@hsu-hh.de> ;
+        	foaf:homepage <https://orcid.org/0000-0003-3458-4748>
+	] ;
+	dct:created "2025-06-16"^^xsd:date ;
+	rdfs:comment "The DBC Ontology provides a semantic model for representing CAN bus messaging, encoding, and observations. It extends the W3C SSN/SOSA ontology to capture CAN database (DBC)-specific concepts such as messages, signals, logs, and ECUs. Designed for the transportation domain, the ontology supports advanced analytics, condition monitoring, predictive maintenance, and real-time diagnostics."@en ;
+	bibo:doi "10.5281/zenodo.17671852" ;
+	dct:bibliographicCitation "Pavle Ivanovic, Maria Maleshkova (2025): DBC – CAN Database Ontology. https://doi.org/10.5281/zenodo.17671852" ;
+	dct:license <https://creativecommons.org/licenses/by/4.0/> ;
+
+	foaf:fundedBy ex:DTEC ;
+
+	owl:imports <http://www.w3.org/ns/sosa/> ,
+		        <http://www.w3.org/ns/ssn/> ,
+		        <http://qudt.org/3.0.0/schema/qudt> .
+
+#################################################################
+
+# Ontology Classes
+
+#################################################################
+
+dbc:SignalEncoding a owl:Class ;
+    rdfs:label "Signal Encoding" ;
+	rdfs:comment "Describes the metadata required to interpret and decode a CAN signal, including bit position, length, signedness, byte order, and scaling parameters." .
+
+dbc:Node a owl:Class ;
+    rdfs:label "Node" ;
+	rdfs:comment "Represents an ECU or logical node on the CAN network that transmits or receives messages or signals." .
+
+dbc:Message a owl:Class ;
+    rdfs:subClassOf sosa:ObservableProperty ;
+    rdfs:label "Message" ;
+	owl:disjointWith dbc:Signal ;
+	rdfs:comment "Represents a CAN message definition, including its structure and the set of signals it contains." .
+	
+dbc:Signal a owl:Class ;
+    rdfs:subClassOf sosa:ObservableProperty ;
+    rdfs:label "Signal" ;
+	rdfs:comment "Represents a decoded physical or logical quantity encoded inside a CAN message. Each signal corresponds to an observable property that can be measured and interpreted." .
+	
+dbc:MessageLog a owl:Class ;
+    rdfs:subClassOf sosa:Observation ;
+    rdfs:label "Message Log" ;
+	owl:disjointWith dbc:SignalLog ;
+	rdfs:comment "Represents an observation of a CAN message in raw, encoded form as captured from the bus, including timestamp, identifier, and payload bytes." .
+
+dbc:SignalLog a owl:Class ;
+    rdfs:subClassOf sosa:Observation ;
+    rdfs:label "Signal Log" ;
+	rdfs:comment "Represents a decoded observation of a specific CAN signal, derived from a raw MessageLog entry and expressing a physical value with units." .
+
+sosa:Observation a owl:Class ;
+    rdfs:label "Observation" .
+
+sosa:ObservableProperty a owl:Class ;
+    rdfs:subClassOf ssn:Property ;
+    rdfs:label "ObservableProperty" .
+	
+sosa:Sensor a owl:Class ;
+    rdfs:subClassOf ssn:System ;
+    rdfs:label "Sensor" .
+	
+sosa:Platform a owl:Class ;
+    rdfs:label "Platform" .	
+
+qudt:EndianType a owl:Class ;
+    rdfs:label "Endian Type" .
+
+#################################################################
+
+# Object Properties
+
+#################################################################
+
+dbc:encodedVia a owl:ObjectProperty ;
+    rdfs:domain dbc:Message ;
+    rdfs:range dbc:SignalEncoding ;
+    rdfs:label "encoded via" ;
+    rdfs:comment "Links a CAN message definition to the SignalEncoding that specifies how its payload bytes are structured and interpreted." .
+
+dbc:decodedVia a owl:ObjectProperty ;
+    rdfs:domain dbc:Signal ;
+    rdfs:range dbc:SignalEncoding ;
+    rdfs:label "decoded via" ;
+    rdfs:comment "Links a CAN signal definition to the SignalEncoding that defines how its bit-level representation is decoded into a physical or logical value." .
+
+dbc:hasTransmitter a owl:ObjectProperty ;
+    rdfs:domain dbc:Message ;
+    rdfs:range dbc:Node ;
+    rdfs:label "has transmitter" ;
+    rdfs:comment "Links a CAN message definition to the node (ECU) responsible for transmitting it on the bus." .
+
+dbc:hasReceiver a owl:ObjectProperty ;
+    rdfs:domain dbc:Signal ;
+    rdfs:range dbc:Node ;
+    rdfs:label "has receiver" ;
+    rdfs:comment "Links a CAN signal definition to the node (ECU) that consumes or interprets this signal." .
+
+dbc:isPartOf a owl:ObjectProperty ;
+    rdfs:domain dbc:Signal ;
+    rdfs:range dbc:Message ;
+    rdfs:label "is part of" ;
+    rdfs:comment "Indicates that a signal is a structural component of a particular CAN message definition." .
+
+dbc:hasSignal a owl:ObjectProperty ;
+    rdfs:domain dbc:Message ;
+    rdfs:range dbc:Signal ;
+    rdfs:label "has signal" ;
+    rdfs:comment "Indicates that a CAN message contains a particular signal within its payload structure." .
+
+dbc:observedOn a owl:ObjectProperty ;
+    rdfs:domain dbc:MessageLog ;
+    rdfs:range sosa:Platform ;
+    rdfs:label "observed on" ;
+    rdfs:comment "Links a MessageLog observation to the CAN bus (modeled as a sosa:Platform) on which the message was observed." .
+
+dbc:decodedFrom a owl:ObjectProperty ;
+    rdfs:domain dbc:SignalLog ;
+    rdfs:range dbc:MessageLog ;
+    rdfs:label "decoded from" ;
+    rdfs:comment "Indicates that a SignalLog is derived by decoding a specific MessageLog observation." .
+
+sosa:isHostedBy a owl:ObjectProperty ;
+    rdfs:domain sosa:Sensor ;
+    rdfs:range sosa:Platform ;
+    rdfs:label "is hosted by" .
+
+sosa:hosts a owl:ObjectProperty ;
+    rdfs:domain sosa:Platform ;
+    rdfs:range sosa:Sensor ;
+    rdfs:label "hosts" .
+
+sosa:observes a owl:ObjectProperty ;
+    rdfs:domain sosa:Sensor ;
+    rdfs:range sosa:ObservableProperty ;
+    rdfs:label "observes" .
+
+sosa:isObservedBy a owl:ObjectProperty ;
+    rdfs:domain sosa:ObservableProperty ;
+    rdfs:range sosa:Sensor ;
+    rdfs:label "is observed by" .
+
+sosa:observedProperty a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range sosa:ObservableProperty ;
+    rdfs:label "observed property" .
+
+sosa:madeBySensor a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range sosa:Sensor ;
+    rdfs:label "made by sensor" .
+
+sosa:madeObservation a owl:ObjectProperty ;
+    rdfs:domain sosa:Sensor ;
+    rdfs:range sosa:Observation ;
+    rdfs:label "made observation" .
+
+qudt:byteOrder a owl:ObjectProperty ;
+    rdfs:domain dbc:SignalEncoding ;
+    rdfs:range qudt:EndianType ;
+    rdfs:label "byte order" .
+
+qudt:hasUnit a owl:ObjectProperty ;
+    rdfs:domain dbc:Signal ;
+    rdfs:label "has unit" .
+
+#################################################################
+
+# Data Properties
+
+#################################################################
+
+dbc:bitStart a owl:DatatypeProperty ;
+    rdfs:domain dbc:SignalEncoding ;
+    rdfs:range xsd:integer ;            
+    rdfs:label "bit start" ;
+    rdfs:comment "Specifies the starting bit position of the signal within the raw CAN message payload." .
+
+dbc:bitLength a owl:DatatypeProperty ;  
+    rdfs:domain dbc:SignalEncoding ;
+    rdfs:range xsd:integer ;            
+    rdfs:label "bit length" ;
+    rdfs:comment "Specifies the size of the signal in bits within the CAN message payload." .
+
+dbc:signed a owl:DatatypeProperty ;
+    rdfs:domain dbc:SignalEncoding ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "signed" ;
+    rdfs:comment "Indicates whether the encoded signal uses signed numerical representation (true) or unsigned (false)." .
+	
+dbc:hasDecID a owl:DatatypeProperty ;
+    rdfs:domain dbc:Message ;
+    rdfs:range xsd:integer ;           
+    rdfs:label "decimal ID" ;
+    rdfs:comment "Assigns the CAN identifier of the message in decimal notation." .
+
+dbc:dataLength a owl:DatatypeProperty ; 
+    rdfs:domain dbc:Message ;
+    rdfs:range xsd:integer ;             
+    rdfs:label "data length" ;
+    rdfs:comment "Specifies the payload length of the CAN message in bytes." .
+
+dbc:hasHexID a owl:DatatypeProperty ;
+    rdfs:domain dbc:MessageLog ;
+    rdfs:range xsd:string ;
+    rdfs:label "hexadecimal ID" ;
+    rdfs:comment "Stores the CAN identifier of a logged message in hexadecimal notation, as extracted from the CAN frame." .
+
+qudt:byteOrder a owl:DatatypeProperty ;
+    rdfs:label "byte order" .
+
+qudt:conversionMultiplier a owl:DatatypeProperty ;
+    rdfs:label "conversion multiplier" .
+
+qudt:conversionOffset a owl:DatatypeProperty ;
+    rdfs:label "conversion offset" .
+	
+qudt:minInclusive a owl:DatatypeProperty ;
+    rdfs:label "min inclusive" .	
+	
+qudt:maxInclusive a owl:DatatypeProperty ;
+    rdfs:label "max inclusive" .
+
+sosa:hasSimpleResult a owl:DatatypeProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:label "has simple result" .
+
+sosa:resultTime a owl:DatatypeProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "result time" .
+
+#################################################################
+
+# Ontology Instances
+
+#################################################################
+
+ex:FuelTank08 a dbc:Signal ;
+    dbc:decodedVia ex:FuelTank08Encoding ;
+    dbc:hasReceiver ex:ECU03 ;
+    dbc:isPartOf ex:BoeningXX ;
+    qudt:hasUnit ex:L ;
+    sosa:isObservedBy ex:can3_sniffer .
+
+ex:PortGearboxLubOilTemperature a dbc:Signal ;
+    dbc:decodedVia ex:PortGearboxLubOilTemperatureEncoding ;
+    dbc:hasReceiver ex:ECU03 ;
+    dbc:isPartOf ex:BoeningXX ;
+    qudt:hasUnit ex:DEG_C ;
+    sosa:isObservedBy ex:can3_sniffer .
+
+ex:StarboardFanRotationSpeed a dbc:Signal ;
+    dbc:decodedVia ex:StarboardFanRotationSpeedEncoding ;
+    dbc:hasReceiver ex:ECU03 ;
+    dbc:isPartOf ex:BoeningXX ;
+    qudt:hasUnit ex:REV-PER-MIN ;
+    sosa:isObservedBy ex:can3_sniffer .
+
+ex:SmallAuxDieselEngineCurrentL3 a dbc:Signal ;
+    dbc:decodedVia ex:SmallAuxDieselEngineCurrentL3Encoding ;
+    dbc:isPartOf ex:BoeningXII ;
+    qudt:hasUnit ex:A .
+
+ex:SmallAuxDieselEngineVoltage a dbc:Signal ;
+    dbc:decodedVia ex:SmallAuxDieselEngineVoltageEncoding ;
+    dbc:isPartOf ex:BoeningXII ;
+    qudt:hasUnit ex:V .
+
+ex:SmallAuxDieselEngineFrequency a dbc:Signal ;
+    dbc:decodedVia ex:SmallAuxDieselEngineFrequencyEncoding ;
+    dbc:isPartOf ex:BoeningXII ;
+    qudt:hasUnit ex:HZ .
+
+ex:can3 a sosa:Platform ;
+    sosa:hosts ex:can3_sniffer .
+
+ex:FuelTank08Encoding a dbc:SignalEncoding ;
+    dbc:bitLenght ex:16 ;
+    dbc:bitStart ex:16 ;
+    dbc:signed ex:False ;
+    qudt:byteOrder ex:LittleEndian ;
+    qudt:conversionMultiplier ex:1.0 ;
+    qudt:conversionOffset ex:0 ;
+    qudt:maxInclusive ex:65535.0 ;
+    qudt:minInclusive ex:0 .
+
+ex:PortGearboxLubOilTemperatureEncoding a dbc:SignalEncoding ;
+    dbc:bitLenght ex:16 ;
+    dbc:bitStart ex:16 ;
+    dbc:signed ex:False ;
+    qudt:byteOrder ex:LittleEndian ;
+    qudt:conversionMultiplier ex:1.0 ;
+    qudt:conversionOffset ex:0 ;
+    qudt:maxInclusive ex:65535.0 ;
+    qudt:minInclusive ex:0 .
+
+ex:StarboardFanRotationSpeedEncoding a dbc:SignalEncoding ;
+    dbc:bitLenght ex:16 ;
+    dbc:bitStart ex:16 ;
+    dbc:signed ex:False ;
+    qudt:byteOrder ex:LittleEndian ;
+    qudt:conversionMultiplier ex:1.0 ;
+    qudt:conversionOffset ex:0 ;
+    qudt:maxInclusive ex:65535.0 ;
+    qudt:minInclusive ex:0 .
+
+ex:SmallAuxDieselEngineCurrentL3Encoding a dbc:SignalEncoding ;
+    dbc:bitLenght ex:16 ;
+    dbc:bitStart ex:0 ;
+    dbc:signed ex:False ;
+    qudt:byteOrder ex:LittleEndian ;
+    qudt:conversionMultiplier ex:0.1 ;
+    qudt:conversionOffset ex:0 ;
+    qudt:maxInclusive ex:6553.5 ;
+    qudt:minInclusive ex:0 .
+
+ex:SmallAuxDieselEngineVoltageEncoding a dbc:SignalEncoding ;
+    dbc:bitLenght ex:16 ;
+    dbc:bitStart ex:16 ;
+    dbc:signed ex:False ;
+    qudt:byteOrder ex:LittleEndian ;
+    qudt:conversionMultiplier ex:1.0 ;
+    qudt:conversionOffset ex:0 ;
+    qudt:maxInclusive ex:65535.0 ;
+    qudt:minInclusive ex:0 .
+
+ex:SmallAuxDieselEngineFrequencyEncoding a dbc:SignalEncoding ;
+    dbc:bitLenght ex:16 ;
+    dbc:bitStart ex:32 ;
+    dbc:signed ex:False ;
+    qudt:byteOrder ex:LittleEndian ;
+    qudt:conversionMultiplier ex:0.1 ;
+    qudt:conversionOffset ex:0 ;
+    qudt:maxInclusive ex:6553.5 ;
+    qudt:minInclusive ex:0 .
+
+ex:ECU03 a dbc:Node .
+
+ex:BoeningXII a dbc:Message ;
+    dbc:dataLength ex:8 ;
+    dbc:encodedVia ex:SmallAuxDieselEngineCurrentL3Encoding , ex:SmallAuxDieselEngineVoltageEncoding , ex:SmallAuxDieselEngineFrequencyEncoding ;
+    dbc:hasDecID ex:419367681.0 ;
+    dbc:hasSignal ex:SmallAuxDieselEngineCurrentL3 , ex:SmallAuxDieselEngineVoltage , ex:SmallAuxDieselEngineFrequency ;
+    dbc:hasTransmitter ex:Unknown ;
+    sosa:isObservedBy ex:can2_sniffer .
+
+ex:BoeningXX a dbc:Message ;
+    dbc:dataLength ex:8 ;
+    dbc:encodedVia ex:FuelTank08Encoding , ex:PortGearboxLubOilTemperatureEncoding , ex:StarboardFanRotationSpeedEncoding .
+
+ex:can3_sniffer a sosa:Sensor ;
+    sosa:isHostedBy ex:can3 ;
+    sosa:observes ex:BoeningXX .
+

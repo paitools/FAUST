@@ -1,0 +1,31 @@
+### CONFIGURATION ###
+
+# Ontology
+ontology_path: "Ontology/DBC.ttl" 
+ontology_format: "ttl"  # options: ttl, owl, rdf
+
+# Knowlage Graph Matrix
+#KGM_path: "KGM.xlsx"
+KGM_train_path: "KGM/KGM_train.xlsx"
+KGM_val_path: "KGM/KGM_val.xlsx"
+
+# Knowlage Graph Output
+#KG_output_path: "DBC_kg.ttl"
+KG_train_path: "KG/DBC_kg_train.ttl"  
+KG_val_path: "KG/DBC_kg_val.ttl"  
+
+# Instance
+instance_prefix: "ex"
+prefix_line: "@prefix ex: <http://example.org/individuals#> .\n"
+
+# Units
+units_table_path: "units_table.csv"
+
+# Dataset
+dataset_output_format: "json"  # options: json, csv
+
+
+
+
+
+
