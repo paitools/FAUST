@@ -32,40 +32,48 @@ Finally, the Orchestrator coordinates all modules and combines their outputs int
 
 ## Ontology Documentation:
 
-Ontology Specification with permanent `w3id.org` identifier:
+DBC Ontology Specification (`w3id.org/dbc-ontology`), used for FAUST implementation:
 
 [![Documentation](https://img.shields.io/badge/Documentation-DBC_Ontology-blue)](https://paitools.github.io/DBCOntology/documentation/index-en.html)
 
 ## FAUST User Guide
 
-Running **CANDI** on user hardware involves two automated steps:
+Running **FAUST** on user hardware involves two steps:
 
-1. **Create the Knowledge Graph Matrix (KGM)**
-2. **Deploy the Framework**
+1. **Populate the Knowledge Graph Matrices (KGMs)**
+2. **FAUST Deployment**
 
 
-### 1. KGM Creation
+### 1. KGM Population
 
-1. Set the `DBC_FILE` path in the `load_dbc.py` configuration (e.g., `DBC/boening.dbc`).
-   
-2. Run the script:
-   ```bash
-   python3 load_dbc.py
-   
-- The script will also load unit_mapping.json to convert user-defined DBC units into QUDT standard units (e.g., `kW` → `KiloW`).
-  * If a unit is not found in the mapping file, the original value is preserved and a warning is issued.
+![Alt text](docs/KGM_table.png)
+<p align="center"><em>Signal representation in KGM, including individuals, type, and properties</em></p>
 
-- **Output:** a file named  `KGM.xlsx` will be generated in the project’s root directory.
+KGM presents a tabular format for mapping individuals (instances) with corresponding properties. Each sheet in the document depicts a single class, with the first column reserved for instances, while the remaining ones reflect combined data and object properties. Also, the user is not required to define datatypes for each literal, as this is resolved in the later OBDA mapping phase. An example representation of dbc:Signal instances (individuals) is shown above. 
 
-### 2. CANDI Deployment
+The user is required to populate KVM with their own domain-specific instances and save it to the /KVM folder, as a reference.
+In the next iteration, KVM can be split into KVM_train and KVM_val, although it is not mandatory. 
 
-- After verifying the KGM, set the `raw_data_path` to your CAN bus logging structure (e.g., `raw/*/*/*/*.csv`).
+### 2. FAUST Deployment
+
+- After verifying the KGM, check the config file `config.yaml`, and ensure that the settings reflect project requirements.
   
 - Deploy the framework:
   ```bash
-  python3 CANDI.py
+  python3 FAUST.py
 
-### Running SPARQL
+Results: Training and Validation datasets are created in the project root directory. 
+
+## Modular OBDA Architecture
+
+To streamline the development of LLM-driven OBDA systems, we designed MOA, a Modular OBDA Architecture that supports independent, project-specific implementation of individual system components.
+Its modular design promotes reuse across platforms, systems, and programming environments.
+For example, the user plane can be implemented as a standalone GUI application, an embedded component, or a web-based frontend, while the architecture supports integration with diverse LLM deployments, including local, institution-hosted, and cloud-based models.
+
+
+Modular OBDA Architecture (MOA) (Fig.~\ref{fig:MOA}) is organized as a modular multi-layer system comprising, from top to bottom, the user plane, an LLM-based NL$\rightarrow$SPARQL translation layer, the processing unit, an OBDA engine linking the ontology to the system configuration, the mapping layer, a relational database, and the data layer.
+This structure allows each component to be implemented independently, thereby increasing architectural flexibility and supporting a wide range of deployment scenarios.
+
 
 - To run SPARQL queries (e.g., `user_query.rq`) on real-time data:
 
@@ -119,4 +127,7 @@ Result: CANDI now operates with the new logging structure and `json` file format
 All resources are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
 
 ![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)
+
+
+## Citation
 
