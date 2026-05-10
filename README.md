@@ -112,7 +112,8 @@ All resources are licensed under the [Creative Commons Attribution-NonCommercial
 
 ## Citation
 
-Correct DOI!
+<span style="color:red;">Correct DOI!</span>
+
 
 Ivanovic, P., Hranisavljevic, N., & Maleshkova, M. (2026). paitools/FAUST: Fine-tuning Automation System v1.0: Pre-publication Release. Zenodo. https://doi.org/10.5281/zenodo.20083472
 
