@@ -21,7 +21,7 @@ The results show that FAUST-based lightweight LLM fine-tuning enables robust, co
 ## FAUST Modules:
 
 ![Alt text](docs/FAUST_DFT.png)
-<p align="center"><em>DBC Ontology: The core concepts and semantic relationships</em></p>
+<p align="center"><em>The logical Data Flow Diagram of FAUST, including external, process, and store elements.</em></p>
 
 
 FAUST consists of several modular components for automatic generation of NL-to-SPARQL training datasets from domain ontologies. The framework starts with the KG Maker, which instantiates the ontology using a configurable knowledge graph matrix (KGM) and produces the initial knowledge graphs. Next, the KG Reader queries these graphs and generates reusable ontology elements, such as classes, properties, instances, date ranges, and value samples, used throughout dataset generation.
