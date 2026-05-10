@@ -4,11 +4,23 @@
 ![Contributions](https://img.shields.io/badge/Format-JSON-blue)
 ![Contributions](https://img.shields.io/badge/Language-Python-blue)
 
-CANDI is a semantic framework for dynamic CAN bus data decoding, system integration, and E2E deployment automation. CANDI combines virtual knowledge graphs (VKG) with OBDA principles to bridge raw data streams with structured semantic representations, enabling runtime message decoding, semantically governed diagnostics, and real-time analytics.
 
-## DBC Ontology:
+## Abstract:
 
-![Alt text](documentation/DBC_Ontology_v6.png)
+Knowledge graph question answering (KGQA) based on large language models (LLMs) has gained significant traction, particularly on large-scale, schema-light datasets.
+However, existing approaches do not fully address the semantic, structural, and mapping requirements of ontology-based data access (OBDA).
+This limitation is especially relevant in domains such as cyber-physical systems, where data is semantically rich, heterogeneous, and dynamically changing.
+Moreover, large cloud-based LLMs, while proven effective in general-purpose QA, may introduce high computational costs and data privacy concerns in such domains.
+A straightforward alternative is to use locally deployed LLMs; however, without task-specific adaptation, they typically fail to achieve sufficient performance.
+To address these challenges, we present FAUST, an automated fine-tuning system for semantic data analysis.
+Given an ontology, FAUST generates OBDA-compliant training datasets consisting of system prompts, natural-language instructions, and corresponding SPARQL queries, enabling efficient fine-tuning of local LLMs for OBDA scenarios.
+In addition, we introduce the Modular OBDA Architecture (MOA), which integrates LLM-based query generation with an OBDA engine and supports interactive querying over both static and streaming data sources.
+We evaluate our approach on real-world sensor data in terms of query accuracy, latency, and output correctness.
+The results show that FAUST-based lightweight LLM fine-tuning enables robust, cost-efficient, and semantically accurate question answering, outperforming (i) raw local LLMs, (ii) prompt-engineering methods, and (iii) cloud-based LLMs.
+
+## FAUST Modules:
+
+![Alt text](docs/DBC_Ontology_v6.png)
 <p align="center"><em>DBC Ontology: The core concepts and semantic relationships</em></p>
 
 
@@ -30,7 +42,7 @@ Ontology Specification with permanent `w3id.org` identifier:
 
 [![Documentation](https://img.shields.io/badge/Documentation-DBC_Ontology-blue)](https://paitools.github.io/DBCOntology/documentation/index-en.html)
 
-## CANDI User Guide
+## FAUST User Guide
 
 Running **CANDI** on user hardware involves two automated steps:
 
