@@ -24,17 +24,11 @@ The results show that FAUST-based lightweight LLM fine-tuning enables robust, co
 <p align="center"><em>DBC Ontology: The core concepts and semantic relationships</em></p>
 
 
-The DBC Ontology is a domain ontology for modeling Controller Area Network (CAN) communication systems in a semantic and machine-interpretable way. It captures the structure and meaning of CAN messages, signals, electronic control units (ECUs), encoding schemas, and data logging processes, providing a unified conceptual layer for low-level communication data that is otherwise difficult to integrate and analyze. The ontology is designed as an extension of the W3C SSN/SOSA standards and aligns with QUDT to ensure interoperability and consistent representation of physical quantities and units. 
+FAUST consists of several modular components for automatic generation of NL-to-SPARQL training datasets from domain ontologies. The framework starts with the KG Maker, which instantiates the ontology using a configurable knowledge graph matrix (KGM) and produces the initial knowledge graphs. Next, the KG Reader queries these graphs and generates reusable ontology elements, such as classes, properties, instances, date ranges, and value samples, used throughout dataset generation.
 
-The motivation for the DBC Ontology arises from the growing volume and importance of CAN bus data in transportation and cyber-physical systems, including automotive, maritime, railway, and aerospace domains. While CAN is widely adopted as a reliable communication protocol, its data is typically stored and exchanged in encoded, schema-dependent formats (e.g., DBC files) that lack explicit semantics and hinder cross-system integration, reuse, and advanced analytics. Existing semantic models often operate at higher abstraction levels or assume pre-decoded data, limiting their applicability to real-time, resource-constrained, or security-sensitive environments. Against this state of the art, the DBC Ontology aims to bridge the gap between raw CAN bus data and semantic data integration frameworks. 
+The Agnostic Module (AM) creates ontology-independent NL/SPARQL pairs using generic RDF/OWL concepts (e.g., classes, instances, properties). The General Module (GM) focuses on ontology-specific conceptual queries derived from competency-question templates, capturing semantic relations between classes and properties. The Domain Module (DM) extends this process with instance-level knowledge, generating realistic OBDA queries involving domain entities, measurements, aggregations, and temporal constraints.
 
-Ontology main goals are to:
-
--  Provide a standardized semantic representation of CAN communication grounded in established W3C ontologies 
--  Support dynamic decoding and ontology-based access to encoded data streams 
--  Enable scalable, secure, and reusable analytics across domains 
-
-By serving as the semantic core of the CANDI framework, the DBC Ontology facilitates automated deployment, real-time diagnostics, and long-term analysis of CAN-based telemetry, while remaining open, extensible, and reusable for the broader community.
+Finally, the Orchestrator coordinates all modules and combines their outputs into complete training and validation datasets, exported in JSON or CSV format for LLM fine-tuning.
 
 ## Ontology Documentation:
 
