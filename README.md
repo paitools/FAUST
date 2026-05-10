@@ -66,14 +66,17 @@ Results: Training and Validation datasets are created in the project root direct
 
 ## Modular OBDA Architecture
 
+![Alt text](docs/MOA.png)
+<p align="center"><em>The Modular OBDA Architecture (MOA).</em></p>
+
 To streamline the development of LLM-driven OBDA systems, we designed MOA, a Modular OBDA Architecture that supports independent, project-specific implementation of individual system components.
 Its modular design promotes reuse across platforms, systems, and programming environments.
 For example, the user plane can be implemented as a standalone GUI application, an embedded component, or a web-based frontend, while the architecture supports integration with diverse LLM deployments, including local, institution-hosted, and cloud-based models.
 
-
-Modular OBDA Architecture (MOA) (Fig.~\ref{fig:MOA}) is organized as a modular multi-layer system comprising, from top to bottom, the user plane, an LLM-based NL$\rightarrow$SPARQL translation layer, the processing unit, an OBDA engine linking the ontology to the system configuration, the mapping layer, a relational database, and the data layer.
+Modular OBDA Architecture (MOA) is organized as a modular multi-layer system comprising, from top to bottom, the user plane, an LLM-based translation layer, the processing unit, an OBDA engine linking the ontology to the system configuration, the mapping layer, a relational database, and the data layer.
 This structure allows each component to be implemented independently, thereby increasing architectural flexibility and supporting a wide range of deployment scenarios.
 
+## MOA Implementation
 
 - To run SPARQL queries (e.g., `user_query.rq`) on real-time data:
 
