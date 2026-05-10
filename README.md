@@ -51,7 +51,7 @@ Running **FAUST** on user hardware involves two steps:
 ### 1. KGM Population
 
 <p align="center">
-  <img src="docs/KGM_table.png" width="80%">
+  <img src="docs/KGM_table.png" width="90%">
 </p>
 
 <p align="center">
