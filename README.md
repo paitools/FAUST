@@ -92,7 +92,7 @@ This structure allows each component to be implemented independently, thereby in
 
 ## MOA Implementation
 
-- To run the MOA GUI (Linux) Application, set the corresponding GGUF LLM file path in the App and run:
+- To run the MOA GUI (Linux) Application, set the corresponding Ollama-built LLM model in the App's config section and run:
 
    ```bash
    python3 MOA_App.py
