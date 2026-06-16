@@ -42,11 +42,36 @@ DBC Ontology Specification (`w3id.org/dbc-ontology`), used for FAUST implementat
 
 ## FAUST User Guide
 
-Running **FAUST** on user hardware involves two steps:
+### Quick Start
+
+To install and run FAUST locally on macOS or Linux, clone the repository, create a virtual environment, install the package in editable mode, and run the main script:
+
+```bash
+git clone https://github.com/paitools/FAUST.git
+cd FAUST
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+python main.py
+```
+
+For Windows Command Prompt, use:
+
+```cmd
+git clone https://github.com/paitools/FAUST.git
+cd FAUST
+python -m venv .venv
+.venv\Scripts\activate.bat
+pip install -e .
+python main.py
+```
+
+This installs FAUST and its dependencies into the virtual environment while keeping the local repository editable. Running `python main.py` starts the FAUST pipeline using the configuration files and input data included in the repository.
+
+Running **FAUST** involves two steps:
 
 1. **Knowledge Graph Matrices (KGMs) Population**
 2. **FAUST Deployment**
-
 
 ### 1. KGM Population
 
