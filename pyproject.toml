@@ -1,3 +1,45 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "faust-obda"
+version = "1.0.0"
+description = "Fine-tuning Automation System for LLM-driven Semantic Data Analysis"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+  { name = "Pavle Ivanovic" }
+]
+keywords = ["semantic data analysis", "knowledge graph", "ontology", "fine-tuning", "OBDA"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Database",
+]
+
+dependencies = [
+  "pandas>=2.0",
+  "PyYAML>=6.0",
+  "rdflib>=7.0",
+  "scikit-learn>=1.3",
+  "openpyxl>=3.1",
+  "customtkinter>=5.2",
+  "requests>=2.31",
+  "ollama>=0.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/paitools/FAUST"
+Repository = "https://github.com/paitools/FAUST"
+Issues = "https://github.com/paitools/FAUST/issues"
+
+[tool.setuptools]
+py-modules = [
+  "kg_maker",
+  "kg_reader",
+  "module_a",
+  "module_d",
+  "module_g",
+]
