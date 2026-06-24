@@ -109,7 +109,9 @@ KG Reader:
 - Example: A domain-specific function `list_random_signals(kg: str, n: int)` can be modified to return a list of sensors instead of signals by replacing the query:
 
   `SELECT DISTINCT ?signal WHERE { ?signal a dbc:Signal . }`
+  
   with query:
+  
   `SELECT DISTINCT ?sensor WHERE { ?sensor a sosa:Sensor . }`                                                                                              
 
 
