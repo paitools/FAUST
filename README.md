@@ -106,9 +106,11 @@ Results: Training and Validation datasets are created in the project root direct
 KG Reader:
 - The module consists of two submodules, one dedicated to agnostic and the other to domain-specific dataset generation. The role of both submodules is to query the knowledge graphs and create various lists of ontology elements. At the software level, the query is performed via dedicated functions that typically return prefix-name pairs as embedded lists.
 - For a new domain, the user should focus only on the domain-specific submodule and replace current DBC classes with new ones (see KGM Population).
-- Example: A domain-specific function `list_random_temp_signals(kg: str, n: int)` can be modified to return a list of sensors instead of signals by replacing the query:
+- Example: A domain-specific function `list_random_signals(kg: str, n: int)` can be modified to return a list of sensors instead of signals by replacing the query:
 
-  `SELECT DISTINCT ?signal WHERE { ?signal a dbc:Signal . }`   with query   `SELECT DISTINCT ?sensor WHERE { ?sensor a sosa:Sensor . }`                                                                                              
+  `SELECT DISTINCT ?signal WHERE { ?signal a dbc:Signal . }`
+  with query:
+  `SELECT DISTINCT ?sensor WHERE { ?sensor a sosa:Sensor . }`                                                                                              
 
 
 ## Modular OBDA Architecture
