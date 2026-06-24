@@ -86,7 +86,8 @@ Running **FAUST** involves two steps:
 KGM presents a tabular format for mapping individuals (instances) with corresponding properties. Each sheet in the document depicts a single class, with the first column reserved for instances, while the remaining ones reflect combined data and object properties. Also, the user is not required to define datatypes for each literal, as this is resolved in the later OBDA mapping phase. An example representation of dbc:Signal instances (individuals) is shown above. 
 
 The user is required to populate KVM with their own domain-specific instances and save it to the /KVM folder, as a reference.
-In the next iteration, KVM can be split into KVM_train and KVM_val, although it is not mandatory. 
+In the next iteration, KVM can be split into KVM_train and KVM_val, although it is not mandatory.
+The general recommendation is to populate the KGM with all instances first, then extract 10-15% of the instances on each sheet to create a validation set (KVM_val).
 
 ### 2. FAUST Deployment
 
@@ -97,6 +98,23 @@ In the next iteration, KVM can be split into KVM_train and KVM_val, although it 
   python3 FAUST.py
 
 Results: Training and Validation datasets are created in the project root directory. 
+
+### 3. FAUST Adaptation to other domains
+
+- Adapting FAUST to different domains/ontologies requires modification of the following modules:
+
+KG Reader:
+- The module consists of two submodules, one dedicated to agnostic and the other to domain-specific dataset generation. The role of both submodules is to query the knowledge graphs and create various lists of ontology elements. At the software level, the query is performed via dedicated functions that typically return prefix-name pairs as embedded lists.
+- For a new domain, the user should focus only on the domain-specific submodule and replace current DBC classes with new ones (see KGM Population).
+- Example:
+
+A domain-specific function `list_random_temp_signals(kg: str, n: int)` can be modified to return a list of sensors instead of signals by replacing the query:
+
+SELECT DISTINCT ?signal                            SELECT DISTINCT ?sensor
+WHERE {                             with           WHERE { 
+  ?signal a dbc:Signal .                              ?sensor a sosa:Sensor .                  
+}                                                  }                                                  
+
 
 ## Modular OBDA Architecture
 
