@@ -99,7 +99,7 @@ The general recommendation is to populate the KGM with all instances first, then
 
 Results: Training and Validation datasets are created in the project root directory. 
 
-### 3. FAUST Adaptation to other domains
+### 3. FAUST Adaptation to Other Domains
 
 - Adapting FAUST to different domains/ontologies requires modification of the following modules:
 
@@ -114,6 +114,7 @@ KG Reader:
   
   `SELECT DISTINCT ?sensor WHERE { ?sensor a sosa:Sensor . }`                                                                                              
 
+- Note: Generic functions (e.g., list_random_dates(), list_random_values()) should not be modified, only KGM ones. 
 
 ## Modular OBDA Architecture
 
