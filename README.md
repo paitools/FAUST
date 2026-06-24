@@ -123,6 +123,13 @@ General Module:
   (3) establish class–property relations relevant for OBDA (e.g., observation or logging fields).
 -  Similar to KG Reader, the user is expected to make function modifications, adapting combinatorial lists (`list1`, `list2`, etc.) as well as the query (`second_column` variable). 
 
+Domain Module:
+- In the context of OBDA and semantic data analysis, the Domain Module represents FAUST’s core component, incorporating instance-level knowledge into query generation.
+- Adapting this module requires defining query templates, preferably in CQ-SPARQL pair forms, for maximum efficiency.
+- The function/template modification also involves lists and a query variable (`second_column`), with an important distinction: some lists are created dynamically by calling KG Reader (kgr) functions (e.g., list4 = kgr.list_random_signals(kg, 10))
+- Note: the user can adjust the desired number (e.g., 10 signals) of random kgr elements and avoid combinatorial inflation during dataset creation.      
+
+
 ## Modular OBDA Architecture
 
 <p align="center">
@@ -169,7 +176,7 @@ Module Requirements:
 
 ## License
 
-All resources are licensed under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+All resources are licensed under the [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/) license.
 
 ![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)
 
