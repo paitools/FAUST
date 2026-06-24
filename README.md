@@ -125,9 +125,9 @@ General Module:
 
 Domain Module:
 - In the context of OBDA and semantic data analysis, the Domain Module represents FAUST’s core component, incorporating instance-level knowledge into query generation.
-- Adapting this module requires defining query templates, preferably in CQ-SPARQL pair forms, for maximum efficiency.
-- The function/template modification also involves lists and a query variable (`second_column`), with an important distinction: some lists are created dynamically by calling KG Reader (kgr) functions (e.g., list4 = kgr.list_random_signals(kg, 10))
-- Note: the user can adjust the desired number (e.g., 10 signals) of random kgr elements and avoid combinatorial inflation during dataset creation.      
+- Adapting this module requires defining query templates, preferably in a CQ-SPARQL pair form, for maximum efficiency.
+- The function/template modification also involves lists and a query variable (`second_column`), with an important distinction: some lists are created dynamically by calling KG Reader (kgr) functions (e.g., `list4 = kgr.list_random_signals(kg, 10)`)
+- Note: the user can adjust the desired number (e.g., 10 signals) of random `kgr` elements and avoid combinatorial inflation during dataset creation.      
 
 
 ## Modular OBDA Architecture
