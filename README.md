@@ -116,6 +116,13 @@ KG Reader:
 
 - Note: Generic functions (e.g., list_random_dates(), list_random_values()) should not be modified, only KGM ones. 
 
+General Module:
+-  The role of the General Module is to:
+-  (1) map ontology classes to NLQ/NLI concepts by abstracting explicit definitions(e.g., “get messages” instead of “get instances of dbc:Message”),
+-  (2) capture associations between classes, and
+-  (3) establish class–property relations relevant for OBDA (e.g., observation or logging fields).
+-  Similar to KG Reader, the user is expected to make function modifications, adapting combinatorial lists (list, list2, etc.) as well as the query (second_column variable). 
+
 ## Modular OBDA Architecture
 
 <p align="center">
